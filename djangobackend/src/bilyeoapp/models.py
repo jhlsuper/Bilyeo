@@ -2,14 +2,12 @@ from django.db import models
 
 class USER(models.Model):
     id = models.AutoField(primary_key=True)
-    user_nickname = models.CharField(max_length=50)
     user_id = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
     number = models.CharField(max_length=50)
-    ca_key = models.CharField(max_length=50)
-    pay_id = models.CharField(max_length=50)
     rev_star = models.IntegerField()
 
     def __str__(self):
@@ -20,83 +18,10 @@ class CHAT(models.Model):
     user_user_id = models.CharField(max_length=50)
     date = models.DateTimeField('date published')
     context = models.TextField()
-    bg_requset = models.BooleanField()
+    bg_requset = models.ForeignKey("bg_app.BG_ITEM", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.context
-
-class BJ_POST(models.Model):
-    bj_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(USER, on_delete=models.CASCADE)
-    bj_datetime = models.DateTimeField('date published')
-    bj_title = models.CharField(max_length=50)
-    bj_content = models.TextField()
-
-    def __str__(self):
-        return self.bj_title
-
-class BJ_COMMENT(models.Model):
-    bj_id = models.AutoField(primary_key=True)
-    bj_comment_id = models.CharField(max_length=50)
-    bj_comment_datetime = models.DateTimeField('date published')
-    bj_comment_content = models.TextField()
-
-    def __str__(self):
-        return self.bj_comment_content
-
-class BJ_ITEMS(models.Model):
-    bj_items_id = models.ForeignKey(BJ_COMMENT, on_delete=models.CASCADE)
-    bj_price = models.IntegerField()
-    bj_term = models.DateTimeField('date published')
-    bj_content = models.TextField()
-    bj_count = models.AutoField(primary_key=True)
-
-    def __str__(self):
-        return self.bj_items_id
-
-class BG_POST(models.Model):
-    bg_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(USER, on_delete=models.CASCADE)
-    bg_datetime = models.DateTimeField('date published')
-    bg_title = models.CharField(max_length=50)
-    bg_content = models.TextField()
-    bg_image = models.ImageField(upload_to='images/',blank=True, null=True)
-
-    def __str__(self):
-        return self.bg_title
-
-class BG_COMMENT(models.Model):
-    bg_id = models.AutoField(primary_key=True)
-    bg_comment_id = models.CharField(max_length=50)
-    bg_comment_datetime = models.DateTimeField('date published')
-    bg_comment_content = models.TextField()
-
-    def __str__(self):
-        return self.bg_comment_content
-
-class BG_ITEMS(models.Model):
-    bg_items_id = models.ForeignKey(BG_COMMENT, on_delete=models.CASCADE)
-    bg_price = models.IntegerField()
-    bg_term = models.DateTimeField('date published')
-    bg_content = models.TextField()
-    bg_count = models.AutoField(primary_key=True)
-    bg_image = models.ForeignKey(BG_POST, on_delete=models.CASCADE)
-    ca_key = models.IntegerField()
-    bg_request = models.ForeignKey(CHAT, on_delete=models.CASCADE)
-    
-    def __str__(self):
-        return self.bg_content
-
-class BG_CATEGORY(models.Model):
-    ca_id = models.AutoField(primary_key=True)
-    ca_postkey = models.IntegerField()
-    ca_key = models.CharField(max_length=50)
-    ca_value = models.CharField(max_length=50)
-    ca_parent = models.CharField(max_length=50)
-    bca_order = models.IntegerField()
-
-    def __str__(self):
-        return self.ca_value
 
 class NOTIFICATION(models.Model):
     not_id = models.AutoField(primary_key=True)
