@@ -27,7 +27,7 @@ class CHAT(models.Model):
 
 class BJ_POST(models.Model):
     bj_id = models.AutoField(primary_key=True)
-    bj_writer_id = models.CharField(max_length=50)
+    user_id = models.ForeignKey(USER, on_delete=models.CASCADE)
     bj_datetime = models.DateTimeField('date published')
     bj_title = models.CharField(max_length=50)
     bj_content = models.TextField()
@@ -49,17 +49,18 @@ class BJ_ITEMS(models.Model):
     bj_price = models.IntegerField()
     bj_term = models.DateTimeField('date published')
     bj_content = models.TextField()
-    bj_count = models.IntegerField()
+    bj_count = models.AutoField(primary_key=True)
 
     def __str__(self):
         return self.bj_items_id
 
 class BG_POST(models.Model):
     bg_id = models.AutoField(primary_key=True)
-    bg_writer_id = models.CharField(max_length=50)
+    user_id = models.ForeignKey(USER, on_delete=models.CASCADE)
     bg_datetime = models.DateTimeField('date published')
     bg_title = models.CharField(max_length=50)
     bg_content = models.TextField()
+    bg_image = models.ImageField(upload_to='images/',blank=True, null=True)
 
     def __str__(self):
         return self.bg_title
@@ -78,8 +79,8 @@ class BG_ITEMS(models.Model):
     bg_price = models.IntegerField()
     bg_term = models.DateTimeField('date published')
     bg_content = models.TextField()
-    bg_count = models.IntegerField()
-    bg_image = models.ImageField(upload_to='images/',blank=True, null=True)
+    bg_count = models.AutoField(primary_key=True)
+    bg_image = models.ForeignKey(BG_POST, on_delete=models.CASCADE)
     ca_key = models.IntegerField()
     bg_request = models.ForeignKey(CHAT, on_delete=models.CASCADE)
     
