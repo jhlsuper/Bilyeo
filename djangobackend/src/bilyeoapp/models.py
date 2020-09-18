@@ -7,7 +7,7 @@ class USER(models.Model):
     password = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
-    number = models.CharField(max_length=11)
+    number = models.CharField(max_length=50)
     ca_key = models.CharField(max_length=50)
     pay_id = models.CharField(max_length=50)
     rev_star = models.IntegerField()
