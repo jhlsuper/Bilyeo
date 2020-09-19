@@ -24,4 +24,5 @@ urlpatterns = [
 #   path('api/', include('boardapp.api.urls')),
 #   path('api/bg/', include('bg_app.api.urls')),
     path('api/bj/', include('bj_app.api.urls')),
+    path('api/user/', include('bilyeoapp.api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
