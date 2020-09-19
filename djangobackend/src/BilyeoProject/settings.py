@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'bilyeoapp.apps.BilyeoappConfig',
+    'bg_app.apps.BgAppConfig',
+    'bj_app.apps.BjAppConfig',
 ]
 
 MIDDLEWARE = [
