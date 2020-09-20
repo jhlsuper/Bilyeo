@@ -8,6 +8,9 @@ export default class SignUp extends Component {
     isEmailValid: false,
     phoneNumberEntered: "",
     isPhoneNumberValid: false,
+    password: "",
+    confirmPassword: "",
+    isDuplicateUser: false, //중복이있는지확인
   };
   validateName = (nameEntered) => {
     if (nameEntered.length > 1) {
@@ -100,6 +103,51 @@ export default class SignUp extends Component {
       </button>
     );
   };
+  handleOnPasswordInput(passwordInput) {
+    this.setState({ password: passwordInput });
+  }
+
+  handleOnConfirmPasswordInput(confirmPasswordInput) {
+    this.setState({ confirmPassword: confirmPasswordInput });
+  }
+
+  doesPasswordMatch() {
+    const { password, confirmPassword } = this.state;
+    return password === confirmPassword;
+  }
+
+  confirmPasswordClassName() {
+    const { confirmPassword } = this.state;
+
+    if (confirmPassword) {
+      return this.doesPasswordMatch() ? "is-valid" : "is-invalid";
+    }
+  }
+
+  renderFeedbackMessage() {
+    const { confirmPassword } = this.state;
+
+    if (confirmPassword) {
+      if (!this.doesPasswordMatch()) {
+        return (
+          <div className="invalid-feedback">패스워드가 일치하지 않습니다</div>
+        );
+      }
+    }
+  }
+
+  handleOnChange(typeEmail) {
+    axios.get("https://jsonplaceholder.typicode/com/users").then((response) => {
+      const users = response.data;
+      const isUserFound = users.filter(
+        (user) => user.email.toLowerCase() === emailEntered.toLowerCase()
+      ).length;
+
+      isUserFound
+        ? this.setState({ emailEntered, isDuplicateUser: true })
+        : this.setState({ emailEntered, isDuplicateUser: false });
+    });
+  }
 
   render() {
     return (
@@ -113,6 +161,27 @@ export default class SignUp extends Component {
             className="form-control"
             id="idInput"
             placeholder="아이디"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="passworkInput">비밀번호</label>
+          <input
+            type="password"
+            className="form-control"
+            id="passwordInput"
+            placeholder="비밀번호"
+            onChange={(e) => this.handleOnPasswordInput(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPasswordInput">비밀번호 확인</label>
+          <input
+            type="password"
+            className={`form-control ${this.confirmPasswordClassName()}`}
+            id="confirmpasswordreInput"
+            placeholder="비밀번호 확인"
+            onChange={(e) => this.handleOnConfirmPasswordInput(e.target.value)}
           />
         </div>
 
@@ -154,24 +223,6 @@ export default class SignUp extends Component {
           />
         </div>
 
-        <div className="form-group">
-          <label>비밀번호</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="비밀번호"
-          />
-        </div>
-        <div className="form-group">
-          <label>비밀번호 확인</label>
-          <input
-            type="password"
-            className="form-control"
-            id="passwordreInput"
-            placeholder="비밀번호 확인"
-          />
-        </div>
         <div className="form-group">
           <label htmlFor="phoneNumberInput">휴대폰 번호</label>
           <input
