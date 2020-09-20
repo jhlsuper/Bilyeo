@@ -77,14 +77,14 @@ WSGI_APPLICATION = 'BilyeoProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'bilyeo',
-        'USER' : 'admin',
-        'PASSWORD' : '12345678',
-        'HOST' : 'bilyeo.c7q246exxvmt.ap-northeast-2.rds.amazonaws.com',
-        'PORT' : '3306',
-        #'OPTIONS' : {
+        'NAME': 'BILYEO',
+        'USER': 'admin',
+        'PASSWORD': '12345678',
+        'HOST': 'database-1.c7q246exxvmt.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '3306',
+        # 'OPTIONS' : {
         #    'init_command' : 'SET sql_mode= "STRIC_TRANS_TABLES" '
-        #} 
+        # }
     }
 }
 

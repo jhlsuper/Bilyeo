@@ -1,10 +1,12 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import SaveButton from "./components/SaveButton";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
 
 const BaseRouter = () => (
   <div>
-    <Route exact path="/saveButton" component={SaveButton} />
+    <Route path="/login" component={LoginForm} />
+    <Route path="/signup" component={SignupForm} />
   </div>
 );
 
