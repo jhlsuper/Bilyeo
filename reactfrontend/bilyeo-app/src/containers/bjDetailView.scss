@@ -1,0 +1,11 @@
+.Board {
+    display: flex;
+
+    .detail {
+        flex: none;
+    }
+
+    .button {
+        margin-left: auto;
+    }
+}
