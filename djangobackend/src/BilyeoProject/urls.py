@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
 #   path('api/', include('bilyeoapp.api.urls')), 
-#   path('api/bg/', include('bg_app.api.urls')),
+    path('api/bg/', include('bg_app.api.urls')),
     path('api/bj/', include('bj_app.api.urls')),  
     path('rest-auth/', include('rest_auth.urls')), 
     path('rest-auth/registration/', include('rest_auth.registration.urls'))
