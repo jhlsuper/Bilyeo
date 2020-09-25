@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import BaseRouter from "./routes";
-import CustomLayOut from "./containers/Layout";
+import Layout from "./containers/Layout";
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Router>
-          <CustomLayOut>
+          <Layout>
             <BaseRouter />
-          </CustomLayOut>
+          </Layout>
         </Router>
       </div>
     );
