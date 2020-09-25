@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./form.css";
+import axios from "axios";
 export default class SignUp extends Component {
   state = {
     nameEntered: "",
@@ -124,7 +125,7 @@ export default class SignUp extends Component {
     }
   }
 
-  renderFeedbackMessage() {
+  renderFeedbackMessageforPassword() {
     const { confirmPassword } = this.state;
 
     if (confirmPassword) {
@@ -136,19 +137,43 @@ export default class SignUp extends Component {
     }
   }
 
-  handleOnChange(typeEmail) {
-    axios.get("https://jsonplaceholder.typicode/com/users").then((response) => {
-      const users = response.data;
-      const isUserFound = users.filter(
-        (user) => user.email.toLowerCase() === emailEntered.toLowerCase()
-      ).length;
+  async handleOnChange(emailEntered) {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
 
-      isUserFound
-        ? this.setState({ emailEntered, isDuplicateUser: true })
-        : this.setState({ emailEntered, isDuplicateUser: false });
-    });
+    const users = response.data;
+    const isUserFound = users.filter(
+      (user) => user.email.toLowerCase() === emailEntered.toLowerCase()
+    ).length;
+
+    isUserFound
+      ? this.setState({
+          emailEntered,
+          isDuplicateUser: true,
+        })
+      : this.setState({
+          emailEntered,
+          isDuplicateUser: false,
+        });
   }
 
+  emailInputClassName() {
+    if (this.state.typedEmail) {
+      return this.state.isDuplicateUser ? "is-invalid" : "is-valid";
+    }
+    return "";
+  }
+
+  renderFeedbackMessageforEmail() {
+    if (this.state.typedEmail) {
+      return this.state.isDuplicateUser ? (
+        <div className="invalid-feedback">이미 등록되어 있는 이메일입니다</div>
+      ) : (
+        <div className="valid-feedback">사용할 수 있는 이메일입니다</div>
+      );
+    }
+  }
   render() {
     return (
       <form className="my-form">
@@ -213,14 +238,19 @@ export default class SignUp extends Component {
           <input
             type="email"
             className={`form-control ${this.inputClassNameHelper(
-              this.isEnteredEmailValid()
+              this.isEnteredEmailValid(),
+              this.emailInputClassName()
             )}`}
             id="emailInput"
             aria-describedby="emailHelp"
             placeholder="이메일"
-            onChange={(e) => this.validateEmail(e.target.value)}
+            onChange={
+              ((e) => this.validateEmail(e.target.value),
+              (e) => this.handleOnChange(e.target.value))
+            }
             required
           />
+          {this.renderFeedbackMessageforEmail()}
         </div>
 
         <div className="form-group">
