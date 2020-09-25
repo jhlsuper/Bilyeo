@@ -91,7 +91,7 @@ DATABASES = {
         'NAME' : 'BILYEO',
         'USER' : 'admin',
         'PASSWORD' : '12345678',
-        'HOST' : 'database-1.c7q246exxvmt.ap-northeast-2.rds.amazonaws.com',
+        'HOST' : 'bilyeo-db.c7q246exxvmt.ap-northeast-2.rds.amazonaws.com',
         'PORT' : '3306',
         #'OPTIONS' : {
         #    'init_command' : 'SET sql_mode= "STRIC_TRANS_TABLES" '
