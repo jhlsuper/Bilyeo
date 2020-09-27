@@ -4,7 +4,7 @@ from bj_app.models import BJ_BOARD, BJ_ITEM, BJ_COMMENT
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BJ_ITEM
-        fields = ('bj_id','user_id','bj_title', 'bj_content', 'bj_views')
+        fields = ('bj_id','user_id','bj_title', 'bj_content', 'bj_reportingTime', 'bj_views')
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,4 +14,4 @@ class CommentSerializer(serializers.ModelSerializer):
 class CreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BJ_ITEM
-        fields = ('user_id','bj_title', 'bj_content', 'bj_views')
+        fields = ('user_id','bj_title', 'bj_content', 'bj_reportingTime', 'bj_views')

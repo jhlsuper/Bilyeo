@@ -1,8 +1,6 @@
 from bj_app.models import BJ_BOARD, BJ_ITEM, BJ_COMMENT
 from .serializers import ItemSerializer, CommentSerializer, CreateSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
-from rest_framework.decorators import api_view
-from rest_framework import filters
 
 class BoardView(ListAPIView):
     queryset = BJ_ITEM.objects.all()
